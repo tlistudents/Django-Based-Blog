@@ -1,0 +1,71 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<!-- set to cn-zh for chinese -->
+<html lang="en-us">
+
+<head>
+    <!-- encode use, use utf-8 to capable chinese -->
+    <meta charset="utf-8">
+    <!-- Title -->
+    <title>{% block title %}{% endblock %}</title>
+    <!-- load css file in bootstrap -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <!-- load monikai.css -->
+    <link rel="stylesheet" href="{% static 'md_css/monokai.css' %}">
+
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14.0/css/all.min.css"
+    >
+</head>
+
+<body>
+
+<!-- load header-->
+{% include 'header.html' %}
+<!-- leave some space -->
+<div id="wrapper">
+    {% block content %}{% endblock content %}
+    <div id="push"></div>
+</div>
+<!-- load fotter-->
+{% include 'footer.html' %}
+
+<!-- bootstrap.js needs jquery.js  and popper.js, import them here -->
+<script src="{% static 'jquery/jquery-3.3.1.js' %}"></script>
+
+<!-- removely use popper.js-->
+{#<script src="{% static 'popper/popper-1.14.4.js' %}"></script>#}
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1-lts/dist/umd/popper.min.js"></script>
+
+<!-- load js file from bootstrap -->
+<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- load layer.js -->
+<script src="{% static 'layer/layer.js' %}"></script>
+
+{% block script %}{% endblock script %}
+
+{% include 'back_to_top_func.html' %}
+
+
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+    }
+
+    #wrapper {
+        min-height: 100%;
+        margin-bottom: -40px;
+    }
+
+    #footer,
+    #push {
+        height: 60px;
+    }
+</style>
+
+</body>
+
+</html>

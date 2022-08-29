@@ -1,0 +1,79 @@
+{% load notifications_tags %}
+{% notifications_unread as unread_count %}
+
+<!-- define navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <!-- define navbar-brand -->
+        <a class="navbar-brand" href="#">Django Based Blog</a>
+        
+        <div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'article:article_list' %}">Article</a>
+                </li>
+
+                {% if user.is_authenticated %}
+                    <!-- show user name if user has logged in -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% if unread_count %}
+                                <svg viewBox="0 0 8 8"
+                                     width="8px"
+                                     height="8px">
+                                    <circle cx="4"
+                                            cy="4"
+                                            r="4"
+                                            fill="#ff6b6b"
+                                    ></circle>
+                                </svg>
+                            {% endif %}
+                            {{ user.username }}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url "notice:list" %}">Notice
+                                {% if unread_count %}
+                                    <span class="badge badge-danger">{{ unread_count }}</span>
+                                {% endif %}
+                            </a>
+                            <a class="dropdown-item" href="{% url 'article:article_create' %}">Write Article</a>
+                            <a class="dropdown-item" href='{% url "userprofile:edit" user.id %}'>User Info</a>
+                            <a class="dropdown-item" href="#" onclick="user_delete()">Delete User</a>
+                            <a class="dropdown-item" href='{% url "userprofile:logout" %}'>Log Out</a>
+                        </div>
+                    </li>
+                <!-- show login if not already login -->
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'account_login' %}">Log in</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+{% if user.is_authenticated %}
+<form 
+    style="display:none;" 
+    id="user_delete"
+    action="{% url 'userprofile:delete' user.id %}" 
+    method="POST"
+>
+{% csrf_token %}
+    <button type="submit">Submit</button>
+</form>
+    <script>
+        function user_delete() {
+            // user layer plugin
+            layer.open({
+                title: "Delete confirmation",
+                content: "Are you sure you want to delete this user?",
+                yes: function(index, layero) {
+                    $('form#user_delete button').click();
+                    layer.close(index);
+                },
+            })
+        }
+    </script>
+{% endif %}
