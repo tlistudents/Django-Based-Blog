@@ -1,5 +1,5 @@
 # Django-Based-Blog
-This is my first full stack web developer project
+This is my first full stack web development project
 
 * A Python Django framework based multi-user blog system
 * Everyone can read and “like” the articles in the blog, but only user who registered can post articles and make comment on the articles, editor supports Markdown grammar. 
