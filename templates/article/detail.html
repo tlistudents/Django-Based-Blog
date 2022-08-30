@@ -271,14 +271,14 @@ Article Details
         if (!storage_json_data) {
             storage_json_data = {}
         };
-        const status = check_status(storage_json_data, id);
-        if (status) {
-            layer.msg('already liked');
-            return;
-        } else {
+        //const status = check_status(storage_json_data, id);
+        //if (status) {
+        //    layer.msg('already liked');
+        //    return;
+        //} else {
             // use Jquery to find like number and then  +1
-            $('span#likes_number').text(likes + 1).css('color', '#dc3545');
-        }
+        $('span#likes_number').text(likes + 1).css('color', '#dc3545');
+        //}
         // use ajax to post request
         $.post(
             url,

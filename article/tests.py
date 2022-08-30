@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 from time import sleep
 from django.urls import reverse
 
-
 # Used to test the article funtion of this application
 class ArticlePostModelTests(TestCase):
     def test_was_created_recently_with_future_article(self):

@@ -20,7 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '__=s9@oixaun$x^g7-4#10wf_*7zvb8)kl1$j82fj&cyq%^o^3'
+SECRET_KEY = 'c7p&7_-ojiz#f(3dan2iui-&)_o4i8_dyd$jx7y+r_b1k@0yr$'
+#SECRET_KEY = '__=s9@oixaun$x^g7-4#10wf_*7zvb8)kl1$j82fj&cyq%^o^3'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
@@ -45,10 +47,12 @@ INSTALLED_APPS = [
     'bootstrap4',
     'django.contrib.sites',
     'allauth',
+    'widget_tweaks',
     'allauth.account',
     'allauth.socialaccount',
     # add the third party login such as github, weibo, google, etc.
     'allauth.socialaccount.providers.github',
+    #'allauth.socialaccount.providers.weibo',
 
     'password_reset',
     'taggit',
@@ -99,12 +103,15 @@ WSGI_APPLICATION = 'my_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        # since the data size is small, I just use sqlite3
-        # if that's for super big blog or other huge project that
-        # need big data base, can use MySQL or Redies or other big
-        # data base 
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # can be change to other databse engine like MySQL,
+        #'ENGINE': 'django.db.backends.mysql', 
+        #'NAME': 'xxx',  
+        #'USER': 'xxx',     
+        #'PASSWORD': 'xxx',  
+        #'HOST': '127.0.0.1',  
+        #'PORT': '3306',                
     }
 }
 
@@ -133,7 +140,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EST'
 
 USE_I18N = True
 
@@ -153,24 +160,19 @@ STATICFILES_DIRS = (
 # static files collced path
 STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
-# SMTP server
+# SMTP Server, used to send email
+# Need to open the SMTP service on eamil service providor
 EMAIL_HOST = 'your smtp'
-# email
 EMAIL_HOST_USER = 'your email'
-# email password
 EMAIL_HOST_PASSWORD = 'your password'
-# email port
 EMAIL_PORT = 25
-# weather use TLS
 EMAIL_USE_TLS = True
-# defaul email sender
 DEFAULT_FROM_EMAIL = 'your email'
 
-# media path
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-# ckeditor configure 
+# ckeditor configure (used for makeing comment)
 CKEDITOR_CONFIGS = {
     'default': {
         'width':'auto',
@@ -185,23 +187,20 @@ CKEDITOR_CONFIGS = {
             ['NumberedList', 'BulletedList'],
             ['Maximize']
         ],
-        # plugins
         'extraPlugins': ','.join(['codesnippet', 'prism', 'widget', 'lineutils']),
     }
 }
 
-# use allauth as login
+# use allauth for login
 AUTHENTICATION_BACKENDS = (
-    # 此项使 Django 后台可独立于 allauth 登录
     'django.contrib.auth.backends.ModelBackend',
-    # 配置 allauth 独有的认证方法，如 email 登录
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 # set side id
 SITE_ID = 1
 # redirect url
-LOGIN_REDIRECT_URL = '/blog'
+LOGIN_REDIRECT_URL = '/'
 
 # LOGGING = {
 #     'version': 1,

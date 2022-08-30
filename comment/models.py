@@ -27,7 +27,7 @@ class Comment(MPTTModel):
         related_name='children'
     )
 
-    # recored the person subject to the secondary level comment 
+    # recored the person subject to the secondary level comment
     reply_to = models.ForeignKey(
         User,
         null=True,

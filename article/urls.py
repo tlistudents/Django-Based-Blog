@@ -16,7 +16,7 @@ urlpatterns = [
     path('article-safe-delete/<int:id>/', views.article_safe_delete, name='article_safe_delete'),
     # update article
     path('article-update/<int:id>/', views.article_update, name='article_update'),
-    # like +1
+    # like ++
     path('increase-likes/<int:id>/', views.IncreaseLikesView.as_view(), name='increase_likes'),
     # list view
     path('list-view/', views.ArticleListView.as_view(), name='list_view'),

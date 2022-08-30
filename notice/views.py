@@ -13,7 +13,7 @@ class CommentNoticeListView(LoginRequiredMixin, ListView):
     # template path
     template_name = 'notice/list.html'
     # redirect
-    login_url = '/userprofile/login/'
+    login_url = '/accounts/login/'
     # unread notice search
     def get_queryset(self):
         return self.request.user.notifications.unread()
@@ -21,7 +21,7 @@ class CommentNoticeListView(LoginRequiredMixin, ListView):
 
 class CommentNoticeUpdateView(View):
     """Notice update"""
-    # handle get request
+    # handle GET request
     def get(self, request):
         # update single notice
         notice_id = request.GET.get('notice_id')

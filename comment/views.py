@@ -11,11 +11,11 @@ from django.contrib.auth.models import User
 
 
 # article comment
-@login_required(login_url='/userprofile/login/')
+@login_required(login_url='/accounts/login/')
 def post_comment(request, article_id, parent_comment_id=None):
     article = get_object_or_404(ArticlePost, id=article_id)
 
-    # handle post request
+    # handle POST request
     if request.method == 'POST':
         comment_form = CommentForm(request.POST)
         if comment_form.is_valid():

@@ -8,7 +8,6 @@ class UserLoginForm(forms.Form):
     password = forms.CharField()
 
 
-
 class UserRegisterForm(UserCreationForm):
     # add email as defail user create form
     email = forms.EmailField(label = "Email")

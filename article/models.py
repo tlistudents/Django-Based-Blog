@@ -2,17 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
-
-# Django-taggit
 from taggit.managers import TaggableManager
 
 # use to handle the images
 from PIL import Image
 
 class ArticleColumn(models.Model):
-    """
-    ArticleColumn Model
-    """
 
     title = models.CharField(max_length=100, blank=True)
     
@@ -27,10 +22,12 @@ class ArticlePost(models.Model):
     Post Article Model
     """
 
+
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
     avatar = models.ImageField(upload_to='article/%Y%m%d/', blank=True)
+
 
     column = models.ForeignKey(
         ArticleColumn,
@@ -40,33 +37,31 @@ class ArticlePost(models.Model):
         related_name='article'
     )
 
-
     # use Django-taggit lib
     tags = TaggableManager(blank=True)
+
 
     # title
     title = models.CharField(max_length=100)
 
-
+    
     body = models.TextField()
 
-    # total view
+    # view number
     total_views = models.PositiveIntegerField(default=0)
 
-    # ikes
+    # likes
     likes = models.PositiveIntegerField(default=0)
 
-    # post times
+    # posting times
     created = models.DateTimeField(default=timezone.now)
 
     # post last modified time
     updated = models.DateTimeField(auto_now=True)
 
-
     class Meta:
     	# '-created': reverse order 
         ordering = ('-created',)
-
 
     def __str__(self):
         return self.title
@@ -77,9 +72,9 @@ class ArticlePost(models.Model):
 
     # handle the images
     def save(self, *args, **kwargs):
+        # handle the size of image
         article = super(ArticlePost, self).save(*args, **kwargs)
 
-        # handle the size of image
         if self.avatar and not kwargs.get('update_fields'):
             image = Image.open(self.avatar)
             (x, y) = image.size

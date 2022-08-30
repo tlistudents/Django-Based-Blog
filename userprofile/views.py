@@ -34,7 +34,7 @@ def user_login(request):
     elif request.method == 'GET':
         user_login_form = UserLoginForm()
         context = { 'form': user_login_form }
-        return render(request, 'userprofile/login.html', context)
+        return render(request, 'account/login.html', context)
     else:
         return HttpResponse("Please use GET or POST method to request data")
 
@@ -58,14 +58,14 @@ def user_register(request):
     elif request.method == 'GET':
         user_register_form = UserRegisterForm()
         context = { 'form': user_register_form }
-        return render(request, 'userprofile/register.html', context)
+        return render(request, 'account/signup.html', context)
     else:
         return HttpResponse("Please use GET or POST method to request data")
 
 
 # delete user
 # A decorator that validates the if the user is logged in
-@login_required(login_url='/userprofile/login/')
+@login_required(login_url='/accounts/login/')
 def user_delete(request, id):
     if request.method == 'POST':
         user = User.objects.get(id=id)
@@ -82,7 +82,7 @@ def user_delete(request, id):
 
 
 # Edit user profile
-@login_required(login_url='/userprofile/login/')
+@login_required(login_url='/accounts/login/')
 def profile_edit(request, id):
     user = User.objects.get(id=id)
 
